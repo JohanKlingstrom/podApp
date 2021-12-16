@@ -4,10 +4,7 @@
 const mainContainer = document.getElementById('main-content');
 const searchContainer = document.getElementById('search-container');
 
-const button = document.getElementById('shuffle-button');
-button.addEventListener('click', () => {
-    fetchData();
-})
+
 const searchButton = document.getElementById('search-button');
 searchButton.addEventListener('click', () => {
     searchForEpisodes();
@@ -20,8 +17,8 @@ let episodeList = {};
 
 
 
-function fetchData(){
-    fetch('http://api.sr.se/api/v2/episodes/index?programid=3718&pagination=false&fromdate=2021-01-01&format=json')
+function fetchData(query){
+    fetch(`http://api.sr.se/api/v2/episodes/getlist?ids=${query}&format=json`)
         .then(res => res.json())
         .then(data => {
             buildEpisodeArticle(formatData(data));
@@ -67,19 +64,28 @@ function buildSearchList(list){
         const li = document.createElement('li');
         const liTitle = document.createElement('h3');
         const liDescrip = document.createElement('p');
+        const liButton = document.createElement('button');
     
         //Add content
         liDescrip.textContent = list[i].description;
         liTitle.textContent = list[i].title;
+        liButton.textContent = 'Pick Episode';
+        //Make each button numbered
+        liButton.setAttribute("id", `btnChoice${i}`);
+        //Set the buttons data attribute to episode ID
+        liButton.setAttribute("data-id", `${list[i].id}`);
+        liButton.addEventListener('click', () => {
+            let chosenEp = liButton.getAttribute("data-id");
+            fetchData(chosenEp);
+            scroll(0,0);
+        })
     
         //Append to DOM
         li.appendChild(liTitle);
         li.appendChild(liDescrip);
+        li.appendChild(liButton);
         searchContainer.appendChild(li);
     }
 }
 
-
-
-
-
+// Run formatData() on the list item user picks

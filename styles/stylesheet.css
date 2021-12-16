@@ -23,7 +23,7 @@ main{
 }
 
 #main-content{
-  margin: 10px;
+  margin: 1rem 10rem;
   
 }
 
@@ -46,7 +46,10 @@ img {
   padding: 10px 10px;
 }
 
-li p{
+li p {
   font-size: 14px;
-  margin-bottom: 10px;
+}
+
+li button {
+  margin: 10px 0px;
 }
