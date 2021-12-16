@@ -27,6 +27,11 @@ main{
   
 }
 
+#search-container {
+  margin: 2rem 5rem;
+  list-style: none;
+}
+
 .episode {
   margin-top: 10px;
 }
@@ -39,4 +44,9 @@ img {
 #episode-description {
   font-weight: 200;
   padding: 10px 10px;
+}
+
+li p{
+  font-size: 14px;
+  margin-bottom: 10px;
 }

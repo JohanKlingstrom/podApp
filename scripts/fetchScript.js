@@ -3,6 +3,7 @@
 // Constant variables
 const mainContainer = document.getElementById('main-content');
 const searchContainer = document.getElementById('search-container');
+
 const button = document.getElementById('shuffle-button');
 button.addEventListener('click', () => {
     fetchData();
@@ -15,7 +16,7 @@ searchButton.addEventListener('click', () => {
 // Other Variables
 let searchQuery = "";
 let formatedProgramInfo = {};
-let formatedSearchList = {};
+let episodeList = {};
 
 
 
@@ -34,8 +35,9 @@ function searchForEpisodes(){
     fetch(`http://api.sr.se/api/v2/episodes/search/?query=${searchQuery}&format=json`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
-            formatSearchList(data);
+            episodeList = data.episodes;
+            searchContainer.innerHTML = "";
+            buildSearchList(episodeList);
         })
 }
 
@@ -51,18 +53,8 @@ function formatData(data) {
     return formatedProgramInfo;
 }
 
-
-
 // Loop through each index item of response and build an object with data
-function formatSearchList(data) {
-    for(let i; i < 10; i++) {
-        // formatedSearchList = {
-        //     title: data.episodes[i].title,
-        //     image: data.episodes[i].imageurl
-        // }
-        buildSearchListItem(data);
-    }
-}
+// function formatSearchList(ep) {}
 
 function buildEpisodeArticle(episodeData) {
     mainContainer.innerHTML = `<h2 id="episode title">${episodeData.title}</h2>
@@ -71,11 +63,25 @@ function buildEpisodeArticle(episodeData) {
     <audio class="episode player" controls src="${episodeData.audio}">Your browser does not support the audio element</audio>`;
 }
 
-function buildSearchListItem(data) {
-    document.createElement(`<div><h2 id="episode title">${data.episodes[i].title}</h2>
-    <img class="episode coverart"src="${data.episodes[i].imageurl}"/></div>`);
+function buildSearchList(list){
+    //Create search list elements
+    for (let i = 0; i < list.length; i++) {
+        console.log(list[i].title);
+        const li = document.createElement('li');
+        const liTitle = document.createElement('h3');
+        const liDescrip = document.createElement('p');
+    
+        //Add content
+        liDescrip.textContent = list[i].description;
+        liTitle.textContent = list[i].title;
+    
+    
+        //Append to DOM
+        li.appendChild(liTitle);
+        li.appendChild(liDescrip);
+        searchContainer.appendChild(li);
+    }
 }
-
 
 
 
