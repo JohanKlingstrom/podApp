@@ -8,3 +8,35 @@
 body {
   background: #0a2a43;
 }
+
+button {
+  color: #000;
+}
+input {
+  color:#000;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#main-content{
+  margin: 10px;
+  
+}
+
+.episode {
+  margin-top: 10px;
+}
+
+img {
+  width: 10rem;
+}
+
+
+#episode-description {
+  font-weight: 200;
+  padding: 10px 10px;
+}

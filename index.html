@@ -22,20 +22,24 @@
     </header>
 
     <main>
-      <article>
-        <h2 id="episode-title">Episode 100</h2>
-        <p class="episode-description">
-          In this episode Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Aspernatur doloremque harum saepe velit modi officiis veritatis
-          alias a, quaerat aliquam nostrum eveniet iusto quo, adipisci
-          voluptatum animi, tempore nam voluptate! Corporis nam possimus, fuga
-          eum fugit, officia molestias tempore accusamus, in animi quaerat
-          cumque ducimus! Nam repellat dignissimos saepe sequi ducimus, iste
-          nulla incidunt error officiis illo accusamus quis nemo!
+      <article id="main-content">
+        <h2 class="episode title">Episode X</h2>
+        <p class="episode description">
+          Load en episode to begin.
         </p>
+        
       </article>
+      <form action="#">
+        <input type="text" id="searchbar" placeholder="Search..">
+        <button id="search-button">Search</button>
+      </form>
+      <button id="shuffle-button">Load More</button>
 
-      <div>
+
+      <ul id="search-container">
+
+      </ul>
+      <!-- <div>
         <h3>Episodes</h3>
         <ul>
           <li>Ep. 999</li>
@@ -43,12 +47,11 @@
           <li>Ep. 997</li>
           <li>Ep. 996</li>
         </ul>
-        <button>Load More</button>
-      </div>
+      </div> -->
     </main>
 
     <footer>
-      <a href="./">Home</a>
+      <!-- <a href="./">Home</a> -->
       <script src="./scripts/fetchScript.js"></script>
     </footer>
   </body>
