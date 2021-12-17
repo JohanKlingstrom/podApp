@@ -1,10 +1,6 @@
-/* Make a random pod/episode play when pressing a button! */
-
 // Constant variables
 const mainContainer = document.getElementById('main-content');
 const searchContainer = document.getElementById('search-container');
-
-
 const searchButton = document.getElementById('search-button');
 searchButton.addEventListener('click', () => {
     searchForEpisodes();
@@ -15,9 +11,8 @@ let searchQuery = "";
 let formatedProgramInfo = {};
 let episodeList = {};
 
-
-
-function fetchData(query){
+// Use user search query to grab a specific episode from API
+function fetchEpisode(query){
     fetch(`http://api.sr.se/api/v2/episodes/getlist?ids=${query}&format=json`)
         .then(res => res.json())
         .then(data => {
@@ -26,8 +21,9 @@ function fetchData(query){
         
 }
 
-// Search for episodes
+// Search for and list episodes
 function searchForEpisodes(){
+    //Grab user search query from HTML form
     searchQuery = document.getElementById('searchbar').value.toLowerCase();
     fetch(`http://api.sr.se/api/v2/episodes/search/?query=${searchQuery}&format=json`)
         .then(res => res.json())
@@ -51,6 +47,7 @@ function formatData(data){
     return formatedProgramInfo;
 }
 
+//Build the chosen episde article in innerHTML
 function buildEpisodeArticle(episodeData){
     mainContainer.innerHTML = `<h2 id="episode title">${episodeData.title}</h2>
     <img class="episode coverart"src="${episodeData.image}"/>
@@ -58,6 +55,8 @@ function buildEpisodeArticle(episodeData){
     <audio class="episode player" controls src="${episodeData.audio}">Your browser does not support the audio element</audio>`;
 }
 
+
+//DOM manipulation with fetched data
 function buildSearchList(list){
     //Create search list elements
     for (let i = 0; i < list.length; i++) {
@@ -76,7 +75,7 @@ function buildSearchList(list){
         liButton.setAttribute("data-id", `${list[i].id}`);
         liButton.addEventListener('click', () => {
             let chosenEp = liButton.getAttribute("data-id");
-            fetchData(chosenEp);
+            fetchEpisode(chosenEp);
             scroll(0,0);
         })
     
@@ -87,5 +86,3 @@ function buildSearchList(list){
         searchContainer.appendChild(li);
     }
 }
-
-// Run formatData() on the list item user picks
